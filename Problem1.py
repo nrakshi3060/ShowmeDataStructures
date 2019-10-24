@@ -1,15 +1,19 @@
 class Node:
-	def __init__(self, key, value):
-		self.key = key
-		self.value = value
-		self.prev = None
-		self.next = None
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
 
-	def __repr__(self):
-		return "(%s, %s)" % (self.key, self.value)
+    def __repr__(self):
+        return "(%s, %s)" % (self.key, self.value)
 
-class LRU_Cache(object):
-    def __init__(self, capacity):
+
+class LRUCache(object):
+    def __init__(self, capacity=0):
+        if not isinstance(capacity, int) or not capacity >= 0:
+            print("Invalid value for Cache capacity")
+            return
         self.capacity = capacity
         self.map = dict()
         self.head = None
@@ -25,7 +29,7 @@ class LRU_Cache(object):
         return out_string
 
     def get(self, key):
-    	if key in self.map:
+        if key in self.map:
             node = self.map[key]
             self.remove_node(node)
             self.add_node_at_top(node)
@@ -37,6 +41,9 @@ class LRU_Cache(object):
         pass
 
     def set(self, key, value):
+        if self.capacity == 0:
+            print("Cache size is 0! Please add the cache size greater than 0 to store an element")
+            return
         if key in self.map:
             node = self.map[key]
             node.value = value
@@ -70,45 +77,63 @@ class LRU_Cache(object):
             next_node.prev = prev_node
         else:
             self.tail = prev_node
-    	return
+        return
 
-    def add_node_at_top(self,node):
+    def add_node_at_top(self, node):
         node.next = self.head
         if self.head is not None:
             self.head.prev = node
         self.head = node
         if self.tail is None:
             self.tail = self.head
-    	return
-    	
+        return
+
+
 print("-----------------TestCase 1------------------------------")
-our_cache = LRU_Cache(5)
+our_cache = LRUCache(5)
 
 our_cache.set(1, 1);
 our_cache.set(2, 2);
 our_cache.set(3, 3);
 our_cache.set(4, 4);
 
+print(our_cache.get(1))  # returns 1
+print(our_cache.get(2))  # returns 2
+print(our_cache.get(9))  # returns -1 because 9 is not present in the cache
 
-print(our_cache.get(1))    # returns 1
-print(our_cache.get(2))     # returns 2
-print(our_cache.get(9))     # returns -1 because 9 is not present in the cache
-
-our_cache.set(5, 5) 
+our_cache.set(5, 5)
 our_cache.set(6, 6)
 
-print(our_cache.get(3))      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+print(our_cache.get(3))  # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
 
 print("-----------------TestCase 2------------------------------")
-our_cache = LRU_Cache(1)
+cache1 = LRUCache(1)
 
-our_cache.set(1, 1);
+cache1.set(1, 1)
 
+print(cache1.get(1))  # returns 1
+print(cache1.get(9))  # returns -1 because 9 is not present in the cache
 
+cache1.set(5, 5)
 
-print(our_cache.get(1))    # returns 1
-print(our_cache.get(9))     # returns -1 because 9 is not present in the cache
+print(cache1.get(5))  # returns 5
 
-our_cache.set(5, 5) 
+print("-----------------TestCase 3------------------------------")
+cache2 = LRUCache()
 
-print(our_cache.get(5)) #returns 5
+cache2.set(1, 1)
+
+print(cache2.get(1))  # returns -1
+print(cache2.get(9))  # returns -1 because 9 is not present in the cache
+
+cache2.set(5, 5)  # Cache size is 0! Please add the cache size greater than 0 to store an element
+
+print(cache2.get(5))  # returns -1
+
+print("-----------------TestCase 4------------------------------")
+cache3 = LRUCache(None)  # Invalid value for Cache capacity
+
+cache2.set(1, 1)  # Cache size is 0! Please add the cache size greater than 0 to store an element
+
+print(cache2.get(1))  # returns -1
+print(cache2.get(9))  # returns -1

@@ -25,6 +25,7 @@ class Group(object):
     def __str__(self):
         return "name: {} <groups: {} users: {}>".format(self.name, self.groups, self.users)
 
+
 parent = Group("parent")
 child = Group("child")
 sub_child = Group("subchild")
@@ -34,6 +35,7 @@ sub_child.add_user(sub_child_user)
 
 child.add_group(sub_child)
 parent.add_group(child)
+
 
 def is_user_in_group(user, group):
     """
@@ -51,6 +53,7 @@ def is_user_in_group(user, group):
     for g in group.get_groups():
         return is_user_in_group(user, g)
     return False
+
 
 print(is_user_in_group("child", child))
 print(is_user_in_group("subchild", parent))

@@ -1,3 +1,5 @@
 Problem 6 : Union and Intersection of Two Linked Lists
 
-In this problem get_dict is implemented to convert the linked list to dictionary. Reason for using dictionary is it provides O(1) complexity to access the elements. Once it is converted to dict it becomes easy to perform union and intersection. Both union and intersection takes O(n) time complexity. 
+In this problem get_dict is implemented to convert the linked list to dictionary. Reason for using dictionary is because it provides O(1) complexity to access the elements. Once it is converted to dict it becomes easy to perform union and intersection. 
+To find intersection of two linked list it would take n plus m iterations to convert them to dictionary and to loop over them to find intersecting elements. In union method it takes n plus m iterations to convert the linked lists to set and then iterate over n plus m elements to create union linkedlist.
+So time complexity is directly propotional to the length of the linked lists so it is O(N). Number of actively used storage units is  directly proportional to the number of nodes in both linked list so it is O(N). 
