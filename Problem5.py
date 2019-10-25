@@ -9,6 +9,7 @@ class Block:
         self.data = data
         self.previous_hash = previous_hash
         self.hash = self.calc_hash()
+        self.previous = None
 
     def calc_hash(self):
         sha = hashlib.sha256()
@@ -30,10 +31,11 @@ class LinkedList:
         cur_tail = self.tail
         out_string = ""
         while cur_tail:
-            out_string += "[Data: {}, Hash: {}, DateTime: {}]".format(cur_tail.data,
-                                                                      cur_tail.hash,
-                                                                      cur_tail.timestamp) + " <- "
-            cur_tail = cur_tail.previous_hash
+            out_string += "[Data: {}, Hash: {}, DateTime: {}, Previous_Hash: {}]".format(cur_tail.data,
+                                                                                         cur_tail.hash,
+                                                                                         cur_tail.timestamp,
+                                                                                         cur_tail.previous_hash) + " <- "
+            cur_tail = cur_tail.previous
         return out_string
 
     def append(self, timestamp, data):
@@ -43,7 +45,8 @@ class LinkedList:
         else:
             temp = self.tail
             self.tail = Block(timestamp, data, temp.previous_hash)
-            self.tail.previous_hash = temp
+            self.tail.previous_hash = temp.previous_hash
+            self.tail.previous = temp
 
 
 def get_utc_time():
