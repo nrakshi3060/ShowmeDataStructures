@@ -46,6 +46,17 @@ class LinkedList:
             node = node.next
         return output
 
+    def get_set(self):
+        if self.head is None:
+            return ()
+
+        node = self.head
+        output = set()
+        while node:
+            output.add(node)
+            node = node.next
+        return output
+
     def size(self):
         size = 0
         node = self.head
@@ -68,8 +79,8 @@ def union(llist_1, llist_2):
         return llist_1
 
     union_linked_list = LinkedList()
-    set_1 = llist_1.get_dict().keys()
-    set_2 = llist_2.get_dict().keys()
+    set_1 = llist_1.get_set()
+    set_2 = llist_2.get_set()
 
     for num in set_1:
         union_linked_list.append(num)
