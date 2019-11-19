@@ -9,8 +9,8 @@ def find_files(suffix, path):
     try:
         list_dir = os.listdir(path)
         return find_files_func(suffix, path, list_dir, 0)
-    except FileNotFoundError:
-        print(" No such file or directory: './testdir1' exists")
+    except Exception:
+        print(" No such file or directory: '{}' exists".format(path))
 
 
 def is_cfile(suffix, path):
@@ -33,16 +33,21 @@ def find_files_func(suffix, path, list_dir, index):
 
 
 print("------------------TestCase 1------------------------")
-path = "./testdir"
+path = "testdir"
 l = find_files(".c", path)
 
 for item in l:
     print(item)
 
 print("------------------TestCase 2------------------------")
-path = "./testdir1"
+path = "testdir1"
 l = find_files(".c", path)
+print(l)
 
 print("------------------TestCase 3------------------------")
-path = "./testdir2"
-l = find_files(".c", path)
+path2 = "testdir2"
+l = find_files(".h", path2)
+
+print("------------------TestCase 4------------------------")
+path2 = None
+l = find_files(".h", path2)
