@@ -92,10 +92,10 @@ class LRUCache(object):
 print("-----------------TestCase 1------------------------------")
 our_cache = LRUCache(5)
 
-our_cache.set(1, 1);
-our_cache.set(2, 2);
-our_cache.set(3, 3);
-our_cache.set(4, 4);
+our_cache.set(1, 1)
+our_cache.set(2, 2)
+our_cache.set(3, 3)
+our_cache.set(4, 4)
 
 print(our_cache.get(1))  # returns 1
 print(our_cache.get(2))  # returns 2
