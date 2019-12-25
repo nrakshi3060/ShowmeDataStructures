@@ -35,23 +35,22 @@ class Graph:
             node2.remove_child(node1, distance)
 
 
-def dijkstra(start_node, end_node):
+def diijkstra(start_node, end_node):
     distance_dict = {node: math.inf for node in graph.nodes}
-    shortest_path_to_node = {}
-
     distance_dict[start_node] = 0
+    shortest_path_dict = {}
+
     while distance_dict:
-        # Pop the shorest path
         current_node, node_distance = sorted(distance_dict.items(), key=lambda x: x[1])[0]
-        shortest_path_to_node[current_node] = distance_dict.pop(current_node)
+
+        shortest_path_dict[current_node] = distance_dict.pop(current_node)
 
         for edge in current_node.edges:
             if edge.node in distance_dict:
                 new_node_distance = node_distance + edge.distance
-                if distance_dict[edge.node] > new_node_distance:
+                if new_node_distance < distance_dict[edge.node]:
                     distance_dict[edge.node] = new_node_distance
-
-    return shortest_path_to_node[end_node]
+    return shortest_path_dict[end_node]
 
 
 node_u = GraphNode('U')
@@ -82,4 +81,4 @@ graph.add_edge(node_t, node_y, 5)
 graph.add_edge(node_y, node_i, 4)
 graph.add_edge(node_y, node_t, 5)
 
-dijkstra(node_u, node_y)
+print(diijkstra(node_u, node_y))
